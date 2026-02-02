@@ -1,5 +1,5 @@
 "use client"
-import { useState, useEffect, type ReactNode } from "react"
+import { useState, useEffect, type ReactNode, useContext } from "react"
 import { Button } from "@/components/ui/button"
 import { Switch } from "@/components/ui/switch"
 import { Badge } from "@/components/ui/badge"
@@ -17,6 +17,7 @@ import {
   Settings2Icon
 } from "lucide-react"
 import SideBar from "@/components/SideBar"
+import { UserMode } from "@/context/ModeContext"
 
 /* ---------------- TYPES ---------------- */
 
@@ -41,7 +42,7 @@ interface CameraCardProps {
 /* ---------------- PAGE ---------------- */
 
 const CameraRoute: React.FC = () => {
-  const [dark, setDark] = useState<boolean>(false)
+  const {dark, setDark} = useContext(UserMode);
 
   useEffect(() => {
     if (dark) document.documentElement.classList.add("dark")

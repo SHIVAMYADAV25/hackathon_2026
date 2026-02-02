@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, JSX } from "react";
+import { useState, useEffect, JSX, useContext } from "react";
 import { useAuth } from "@clerk/nextjs";
 import LogoutButton from "@/components/LogoutButton";
 
@@ -22,12 +22,13 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import SideBar from "@/components/SideBar";
+import { UserMode } from "@/context/ModeContext";
 
 /* ================= PAGE ================= */
 
 export default function AdminDashboard(): JSX.Element {
   const { isLoaded, userId } = useAuth();
-  const [dark, setDark] = useState(false);
+  const {dark, setDark} = useContext(UserMode);
 
   useEffect(() => {
     if (dark) document.documentElement.classList.add("dark");

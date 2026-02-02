@@ -1,13 +1,15 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, JSX } from "react";
+import { useState, useEffect, JSX, useContext } from "react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
 import { Moon, Sun, Shield, Users, Radio } from "lucide-react";
+import { UserMode } from "@/context/ModeContext";
 
 export default function LandingPage(): JSX.Element {
-  const [dark, setDark] = useState(false);
+  
+  const {dark, setDark} = useContext(UserMode);
 
   useEffect(() => {
     if (dark) document.documentElement.classList.add("dark");

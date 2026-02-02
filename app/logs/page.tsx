@@ -1,5 +1,5 @@
 "use client"
-import { type ReactNode, useEffect, useState } from "react"
+import { type ReactNode, useContext, useEffect, useState } from "react"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 import { Input } from "@/components/ui/input"
@@ -16,6 +16,7 @@ import {
   Moon
 } from "lucide-react"
 import SideBar from "@/components/SideBar"
+import { UserMode } from "@/context/ModeContext"
 
 /* ---------------- TYPES ---------------- */
 
@@ -53,7 +54,7 @@ interface StatCardProps {
 /* ---------------- PAGE ---------------- */
 
 const SecurityLogs: React.FC = () => {
-  const [dark, setDark] = useState(true)
+  const {dark, setDark} = useContext(UserMode);
 
   useEffect(() => {
     if (dark) document.documentElement.classList.add("dark")
