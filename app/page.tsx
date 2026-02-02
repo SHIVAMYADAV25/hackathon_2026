@@ -1,164 +1,218 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, JSX, useContext } from "react";
+import Image from "next/image";
+import { useEffect, useContext } from "react";
 import { Button } from "@/components/ui/button";
 import { Switch } from "@/components/ui/switch";
-import { Moon, Sun, Shield, Users, Radio } from "lucide-react";
+import {
+  Moon,
+  Sun,
+  Shield,
+  Users,
+  Radio,
+  Camera,
+  AlertTriangle,
+  CheckCircle2
+} from "lucide-react";
 import { UserMode } from "@/context/ModeContext";
 
-export default function LandingPage(): JSX.Element {
-  
-  const {dark, setDark} = useContext(UserMode);
+export default function LandingPage() {
+  const { dark, setDark } = useContext(UserMode);
 
   useEffect(() => {
-    if (dark) document.documentElement.classList.add("dark");
-    else document.documentElement.classList.remove("dark");
+    document.documentElement.classList.toggle("dark", dark);
   }, [dark]);
 
   return (
     <div className="min-h-screen bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 transition-colors">
 
       {/* ================= NAVBAR ================= */}
-      <nav className="flex items-center justify-between px-8 py-5">
+      <nav className="flex items-center justify-between px-8 py-5 border-b border-neutral-200 dark:border-neutral-800">
         <div className="flex items-center gap-2 font-semibold text-lg">
-          <Shield className="w-5 h-5" />
+          <Shield className="w-5 h-5 text-blue-500" />
           WatchmyCampus
         </div>
 
-        <div className="hidden md:flex items-center gap-8 text-sm text-neutral-600 dark:text-neutral-400">
-          <a href="#">Our Mission</a>
-          <a href="#">Resources</a>
-          <a href="#">Community</a>
-        </div>
-
-        <div className="flex items-center gap-4">
-          {/* Dark mode toggle */}
+        <div className="flex items-center gap-6">
           <div className="flex items-center gap-2">
             <Sun className="w-4 h-4" />
             <Switch checked={dark} onCheckedChange={setDark} />
             <Moon className="w-4 h-4" />
           </div>
 
-          {/* Login button */}
           <Link href="/sign-in">
-            <Button className="rounded-full px-5">
-              Login
-            </Button>
+            <Button size="sm">Login</Button>
           </Link>
         </div>
       </nav>
 
       {/* ================= HERO ================= */}
-      <section className="text-center mt-24 px-6">
-        <h1 className="text-5xl font-bold leading-tight">
-          Watching over{" "}
-          <span className="text-neutral-400 italic">each other.</span>
-        </h1>
+      <section className="max-w-6xl mx-auto mt-20 px-6 grid md:grid-cols-2 gap-14 items-center">
+        <div>
+          <h1 className="text-4xl md:text-5xl font-semibold leading-tight">
+            Campus safety,
+            <span className="text-blue-500"> clearly managed.</span>
+          </h1>
 
-        <p className="mt-6 max-w-2xl mx-auto text-neutral-600 dark:text-neutral-400">
-          A community-led space where safety isn’t just a system,
-          it’s a shared commitment to looking out for one another.
-        </p>
+          <p className="mt-6 text-lg text-neutral-600 dark:text-neutral-400">
+            WatchmyCampus helps colleges monitor security alerts, assign guards,
+            and resolve incidents with complete visibility and accountability.
+          </p>
 
-        <div className="mt-10 flex justify-center gap-4">
-          <Link href="/sign-up">
-            <Button size="lg">Get Started</Button>
-          </Link>
+          <div className="mt-8 flex gap-4">
+            <Link href="/sign-up">
+              <Button size="lg">Get Started</Button>
+            </Link>
+            <Link href="/sign-in">
+              <Button size="lg" variant="outline">
+                View Dashboard
+              </Button>
+            </Link>
+          </div>
+        </div>
 
-          <Link href="/sign-in">
-            <Button size="lg" variant="outline">
-              Enter Hub
-            </Button>
-          </Link>
+        {/* Hero Image */}
+        <div className="rounded-2xl overflow-hidden border border-neutral-200 dark:border-neutral-800">
+          <img
+            src="https://s.abcnews.com/images/WNT/230515_wn_ender_hpMain_16x9_1600.jpg"
+            alt="Campus security monitoring"
+            className="w-full h-full object-cover"
+          />
+
         </div>
       </section>
 
-      {/* ================= ROLE CARDS ================= */}
-      <section className="mt-20 flex flex-col gap-8 items-center px-6">
+      {/* ================= HOW IT WORKS ================= */}
+      <section className="mt-28 max-w-6xl mx-auto px-6">
+        <h2 className="text-2xl font-semibold text-center mb-14">
+          How WatchmyCampus works
+        </h2>
 
-        {/* Admin */}
-        <div className="w-full max-w-xl bg-neutral-50 dark:bg-neutral-900 rounded-2xl p-6 shadow-sm border border-neutral-200 dark:border-neutral-800">
-          <div className="flex items-start gap-4">
-            <div className="p-3 bg-neutral-200 dark:bg-neutral-800 rounded-full">
-              <Users className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold">Main Guard</h3>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
-                Coordinate safety efforts and manage campus-wide monitoring.
-              </p>
-
-              <Link
-                href="/sign-in"
-                className="mt-4 inline-block text-sm font-medium text-blue-500 hover:underline"
-              >
-                Access Dashboard →
-              </Link>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+          <Step
+            icon={<Camera />}
+            title="Monitor"
+            desc="Cameras and sensors track activity across campus in real time."
+            image="https://images.unsplash.com/photo-1563206767-5b18f218e8de"
+          />
+          <Step
+            icon={<AlertTriangle />}
+            title="Respond"
+            desc="Security alerts are reviewed and assigned to field guards."
+            image="https://media.istockphoto.com/id/591417990/photo/male-operator-sleeping-at-security-monitors-desk.jpg?s=612x612&w=0&k=20&c=XMRKuU2DLjfRbxlzGxbaTpc58RGX5fiXQF-_iBO2lGk="
+          />
+          <Step
+            icon={<CheckCircle2 />}
+            title="Resolve"
+            desc="Incidents are handled, resolved, and logged transparently."
+            image="https://images.unsplash.com/photo-1600880292203-757bb62b4baf"
+          />
         </div>
+      </section>
 
-        {/* Guard */}
-        <div className="w-full max-w-xl bg-neutral-50 dark:bg-neutral-900 rounded-2xl p-6 shadow-sm border border-neutral-200 dark:border-neutral-800">
-          <div className="flex items-start gap-4">
-            <div className="p-3 bg-neutral-200 dark:bg-neutral-800 rounded-full">
-              <Radio className="w-6 h-6" />
-            </div>
-            <div>
-              <h3 className="text-lg font-semibold">Field Guard</h3>
-              <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
-                Active responders monitoring and resolving alerts on the ground.
-              </p>
+      {/* ================= ROLES ================= */}
+      <section className="mt-28 max-w-6xl mx-auto px-6">
+        <h2 className="text-2xl font-semibold text-center mb-14">
+          Built for real security roles
+        </h2>
 
-              <Link
-                href="/sign-in"
-                className="mt-4 inline-block text-sm font-medium text-blue-500 hover:underline"
-              >
-                Open Guard Radio →
-              </Link>
-            </div>
-          </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+          <RoleCard
+            icon={<Users />}
+            title="Main Guard"
+            desc="Oversees campus-wide alerts, assigns field guards, and tracks resolution status."
+            image="https://s.alicdn.com/@sc04/kf/He67c7a46782d48ff8d5e2ef0d305cd07i/Cosplay-Erotic-Lingerie-Sexy-Police-Uniform-Temptation-See-Through-Ladies-Lingerie-Set.jpg"
+          />
+          <RoleCard
+            icon={<Radio />}
+            title="Field Guard"
+            desc="Receives alerts, responds on-site, updates progress, and resolves incidents."
+            image="https://images-na.ssl-images-amazon.com/images/I/71gZRTHtN1L._AC_UL750_SR750,750_.jpg"
+          />
         </div>
       </section>
 
       {/* ================= VALUES ================= */}
-      <section className="mt-24 grid grid-cols-1 md:grid-cols-3 gap-12 text-center px-10 pb-24">
-
-        <div>
-          <Shield className="mx-auto mb-3" />
-          <h4 className="font-medium">Human Centered</h4>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            Prioritizing people’s safety over protocols.
-          </p>
-        </div>
-
-        <div>
-          <Users className="mx-auto mb-3" />
-          <h4 className="font-medium">Transparent</h4>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            Open records, open community trust.
-          </p>
-        </div>
-
-        <div>
-          <Radio className="mx-auto mb-3" />
-          <h4 className="font-medium">Always Here</h4>
-          <p className="text-sm text-neutral-600 dark:text-neutral-400">
-            Supported by peers, 24/7/365.
-          </p>
+      <section className="mt-28 bg-neutral-50 dark:bg-neutral-900/50 py-20 px-6">
+        <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center">
+          <Value icon={<Shield />} title="Reliable">
+            Designed for daily campus operations.
+          </Value>
+          <Value icon={<Users />} title="Human-first">
+            Built around people, not just systems.
+          </Value>
+          <Value icon={<Radio />} title="Always active">
+            Supports continuous security monitoring.
+          </Value>
         </div>
       </section>
 
       {/* ================= FOOTER ================= */}
-      <footer className="border-t border-neutral-200 dark:border-neutral-800 py-6 px-8 flex justify-between text-sm text-neutral-500">
+      <footer className="border-t border-neutral-200 dark:border-neutral-800 py-6 px-8 text-sm text-neutral-500 flex justify-between">
         <p>© 2024 WatchmyCampus</p>
         <div className="flex gap-6">
-          <a href="#">Trust</a>
+          <a href="#">Privacy</a>
           <a href="#">Accessibility</a>
-          <a href="#">Volunteer</a>
+          <a href="#">Contact</a>
         </div>
       </footer>
+    </div>
+  );
+}
+
+/* ---------------- COMPONENTS ---------------- */
+
+function Step({ icon, title, desc, image }: any) {
+  return (
+    <div>
+      <div className="rounded-xl overflow-hidden mb-4 border border-neutral-200 dark:border-neutral-800">
+        <img src={image} alt={title} width={400} height={260} className="object-cover" />
+      </div>
+      <div className="flex justify-center mb-3 text-blue-500">{icon}</div>
+      <h3 className="font-medium">{title}</h3>
+      <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-2">
+        {desc}
+      </p>
+    </div>
+  );
+}
+
+function RoleCard({ icon, title, desc, image }: any) {
+  return (
+    <div className="border border-neutral-200 dark:border-neutral-800 rounded-2xl overflow-hidden hover:shadow-lg transition">
+      <img src={image} alt={title} width={600} height={350} className="object-cover" />
+      <div className="p-6">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="p-2 rounded-lg bg-neutral-200 dark:bg-neutral-800">
+            {icon}
+          </div>
+          <h3 className="font-semibold">{title}</h3>
+        </div>
+        <p className="text-sm text-neutral-600 dark:text-neutral-400">
+          {desc}
+        </p>
+        <Link
+          href="/sign-in"
+          className="inline-block mt-4 text-sm text-blue-500 hover:underline"
+        >
+          Open Interface →
+        </Link>
+      </div>
+    </div>
+  );
+}
+
+function Value({ icon, title, children }: any) {
+  return (
+    <div>
+      <div className="mx-auto mb-3 w-fit p-3 rounded-xl bg-neutral-200 dark:bg-neutral-800">
+        {icon}
+      </div>
+      <h4 className="font-medium">{title}</h4>
+      <p className="text-sm text-neutral-600 dark:text-neutral-400 mt-1">
+        {children}
+      </p>
     </div>
   );
 }
