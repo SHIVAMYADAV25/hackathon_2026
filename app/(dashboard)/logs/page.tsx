@@ -80,13 +80,11 @@ const SecurityLogs: React.FC = () => {
   ]
 
   return (
-    <div className="min-h-screen bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 flex transition-colors">
+    <div className=" min-h-screen bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 flex transition-colors">
 
-      {/* SIDEBAR */}
-      <SideBar />
 
       {/* MAIN */}
-      <main className="flex-1 p-8">
+      <main className="flex-1 p-8 max-w-9xl mx-auto ">
 
         {/* HEADER */}
         <div className="flex justify-between items-center mb-6">

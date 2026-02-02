@@ -3,6 +3,8 @@
 
 @custom-variant dark (&:is(.dark *));
 
+
+
 @layer utilities {
   .scrollbar::-webkit-scrollbar {
     width: 6px;
@@ -27,7 +29,6 @@
     scrollbar-color: #475569 transparent;
   }
 }
-
 
 @theme inline {
   --color-background: var(--background);

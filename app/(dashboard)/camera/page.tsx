@@ -67,9 +67,6 @@ const CameraRoute: React.FC = () => {
   return (
     <div className="min-h-screen bg-white text-neutral-900 dark:bg-neutral-950 dark:text-neutral-100 flex transition-colors">
 
-      {/* SIDEBAR */}
-      <SideBar/>
-
       {/* MAIN */}
       <main className="flex-1 p-8">
 
@@ -160,11 +157,7 @@ const CameraCard: React.FC<CameraCardProps> = ({ cam }) => {
             {cam.id}
           </span>
 
-          {isAlert && (
-            <Badge className="bg-red-500 text-white flex items-center gap-1">
-              <AlertTriangle className="w-3 h-3" /> ALERT
-            </Badge>
-          )}
+          {isAlert && <AlertTriangle className="w-5 h-5 text-red-500 animate-bounce" />}
         </div>
 
         <p className="font-medium mb-3">{cam.name}</p>
